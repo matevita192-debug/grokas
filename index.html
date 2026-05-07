@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mate's WinTweaks - Redeem</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#04040a;--cyan:#00f5ff;--purple:#b44fff;--text:#d0d8f0}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;text-align:center;padding:80px 20px;margin:0}
+h1{font-family:'Orbitron',sans-serif;font-size:52px;background:linear-gradient(135deg,#00f5ff,#b44fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+input{width:320px;padding:18px;font-size:20px;background:#10101e;border:2px solid var(--cyan);color:white;border-radius:12px;text-align:center;text-transform:uppercase;margin:30px 0}
+button{padding:16px 50px;font-size:18px;background:linear-gradient(135deg,#00f5ff,#b44fff);border:none;color:#000;font-weight:700;border-radius:12px;cursor:pointer}
+.result{margin-top:30px;font-size:18px;min-height:60px}
+.success{color:#00ff9d}
+.error{color:#ff3333}
+.code-box{background:#0c0c18;border:1px solid var(--cyan);padding:20px;border-radius:12px;margin-top:20px;display:none}
+</style>
+</head>
+<body>
+<h1>MATE</h1>
+<p style="font-size:18px;color:#00f5ff">Inserisci il tuo codice redeem</p>
+
+<input type="text" id="code" placeholder="TEST1234" maxlength="12" autofocus>
+<br>
+<button onclick="checkCode()">REDEEM CODE</button>
+
+<div id="result" class="result"></div>
+
+<div id="successBox" class="code-box">
+<h3 style="color:#00ff9d">✅ Codice valido!</h3>
+<p>Il tuo WinTweaks è pronto.</p>
+<button onclick="showTweaks()" style="margin-top:10px">Mostra i Tweak</button>
+</div>
+
+<script>
+const VALID_CODES = ["TEST1234", "ABC9876"]; // Aggiungi qui i codici dal tuo Google Sheet
+
+function checkCode() {
+  const code = document.getElementById('code').value.trim().toUpperCase();
+  const result = document.getElementById('result');
+  const successBox = document.getElementById('successBox');
+  
+  if (!code) {
+    result.innerHTML = '<span class="error">Inserisci un codice</span>';
+    return;
+  }
+  
+  if (VALID_CODES.includes(code)) {
+    result.innerHTML = '<span class="success">✅ Codice accettato!</span>';
+    successBox.style.display = 'block';
+  } else {
+    result.innerHTML = '<span class="error">Codice non valido o già usato</span>';
+    successBox.style.display = 'none';
+  }
+}
+
+function showTweaks() {
+  alert("Qui puoi inserire il tuo sito WinTweaks completo o un link per scaricare lo script!");
+  // In futuro: window.location.href = "tuo-link-win-tweaks.html";
+}
+</script>
+</body>
+</html>
