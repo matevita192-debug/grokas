@@ -1,0 +1,381 @@
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mate's WinTweaks</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#04040a;--bg2:#080810;--surface:#0c0c18;--surface2:#10101e;--surface3:#14142a;--cyan:#00f5ff;--cyan2:#00c8d4;--purple:#b44fff;--pink:#ff2d78;--green:#00ff9d;--amber:#ffb800;--red:#ff3333;--text:#d0d8f0;--muted:#4a4a6a;--border:rgba(0,245,255,0.08);--border2:rgba(0,245,255,0.18)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:15px;min-height:100vh;overflow-x:hidden;cursor:none}
+#cursor{position:fixed;width:18px;height:18px;border:1.5px solid var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s;mix-blend-mode:screen}
+#cdot{position:fixed;width:4px;height:4px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 8px var(--cyan)}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px);pointer-events:none;z-index:1}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45}
+.wrap{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 28px 120px}
+ 
+/* HEADER */
+header{padding:60px 0 44px;position:relative}
+.hglow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:800px;height:220px;background:radial-gradient(ellipse,rgba(0,245,255,0.055) 0%,transparent 70%);pointer-events:none}
+.hrow{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.eyebrow{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--cyan);letter-spacing:.3em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';display:inline-block;width:28px;height:1px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+.main-title{font-family:'Orbitron',monospace;font-size:clamp(38px,6vw,68px);font-weight:900;line-height:.92;letter-spacing:-1px;color:#fff}
+.main-title .name{background:linear-gradient(135deg,var(--cyan) 0%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block;position:relative}
+.main-title .sub{display:block;font-size:.38em;color:var(--muted);font-weight:400;margin-top:10px;letter-spacing:.06em;font-family:'Share Tech Mono',monospace}
+ 
+/* GLITCH */
+.glitch{position:relative}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;font-family:'Orbitron',monospace;font-weight:900;font-size:inherit;width:100%;pointer-events:none}
+.glitch::before{-webkit-text-fill-color:var(--cyan);clip-path:polygon(0 20%,100% 20%,100% 40%,0 40%);animation:g1 5s infinite}
+.glitch::after{-webkit-text-fill-color:var(--pink);clip-path:polygon(0 62%,100% 62%,100% 78%,0 78%);animation:g2 5s infinite}
+@keyframes g1{0%,93%,100%{transform:translate(0);opacity:0}94%{transform:translate(-4px,1px);opacity:.75}96%{transform:translate(4px,-1px);opacity:.75}}
+@keyframes g2{0%,95%,100%{transform:translate(0);opacity:0}96%{transform:translate(5px,-2px);opacity:.6}98%{transform:translate(-3px,2px);opacity:.6}}
+ 
+/* STATS */
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:240px;align-self:flex-end;padding-bottom:8px}
+.scard{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-align:center;position:relative;overflow:hidden;transition:border-color .3s}
+.scard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.scard:hover::after{transform:scaleX(1)}
+.scard:hover{border-color:var(--border2)}
+.snum{font-family:'Orbitron',monospace;font-size:26px;font-weight:700;background:linear-gradient(135deg,var(--cyan),var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1}
+.slabel{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;margin-top:6px;display:block}
+ 
+/* SEPARATOR */
+.sep{height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent);margin:34px 0;opacity:.3;position:relative}
+.sep::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:40%;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);filter:blur(3px)}
+ 
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:210px 1fr;gap:22px;align-items:start}
+@media(max-width:700px){.layout{grid-template-columns:1fr}.sidebar{display:flex;flex-wrap:wrap;gap:6px}}
+.sidebar{position:sticky;top:24px}
+.slabel-nav{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;padding:0 12px;margin-bottom:10px;display:block}
+ 
+/* TABS */
+.tab{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--muted);cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;letter-spacing:.05em;text-align:left;transition:all .2s;position:relative;overflow:hidden;width:100%;margin-bottom:4px}
+.tab::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--cyan),var(--purple));transform:scaleY(0);transition:transform .2s;border-radius:2px}
+.tab:hover{border-color:var(--border2);color:var(--text);background:var(--surface)}
+.tab.active{border-color:rgba(0,245,255,.3);color:var(--cyan);background:rgba(0,245,255,.04)}
+.tab.active::before{transform:scaleY(1)}
+.tbadge{font-family:'Share Tech Mono',monospace;font-size:10px;background:rgba(0,245,255,.12);color:var(--cyan);padding:2px 7px;border-radius:99px;min-width:22px;text-align:center}
+ 
+/* CONTENT */
+.content{min-width:0}
+.qa{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.qa-label{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase}
+.qb{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--cyan2);background:rgba(0,245,255,.05);border:1px solid rgba(0,245,255,.12);border-radius:6px;padding:5px 12px;cursor:pointer;letter-spacing:.08em;transition:all .2s}
+.qb:hover{background:rgba(0,245,255,.12);border-color:rgba(0,245,255,.3);color:var(--cyan)}
+.qb.danger{color:var(--pink);background:rgba(255,45,120,.05);border-color:rgba(255,45,120,.12)}
+.qb.danger:hover{background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.3)}
+ 
+/* TABLE */
+.tc{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);position:relative}
+.tc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent);opacity:.6;z-index:1}
+table{width:100%;border-collapse:collapse}
+thead{background:var(--surface2)}
+th{padding:12px 16px;text-align:left;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;border-bottom:1px solid var(--border);white-space:nowrap}
+th:first-child{width:50px;text-align:center}
+th.cr{width:110px;text-align:center}
+tbody tr{border-bottom:1px solid var(--border);transition:background .15s;cursor:pointer;animation:rowin .3s ease both}
+@keyframes rowin{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(0,245,255,.025)}
+tbody tr.sel{background:rgba(0,245,255,.045)}
+td{padding:13px 16px;vertical-align:middle}
+td:first-child{text-align:center}
+td.cr{text-align:center}
+.cbw{width:20px;height:20px;border:1.5px solid var(--muted);border-radius:5px;display:inline-flex;align-items:center;justify-content:center;transition:all .2s}
+tr.sel .cbw{border-color:var(--cyan);background:rgba(0,245,255,.15);box-shadow:0 0 10px rgba(0,245,255,.3)}
+.cbw svg{display:none}
+tr.sel .cbw svg{display:block}
+.tname{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:.02em}
+tr.sel .tname{color:var(--cyan)}
+.tdesc{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5}
+ 
+/* BADGES */
+.badge{font-family:'Share Tech Mono',monospace;font-size:9px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:.1em;text-transform:uppercase;display:inline-block;white-space:nowrap}
+.bs{background:rgba(0,255,157,.08);color:var(--green);border:1px solid rgba(0,255,157,.2)}
+.bm{background:rgba(255,184,0,.08);color:var(--amber);border:1px solid rgba(255,184,0,.2)}
+.ba{background:rgba(255,51,51,.08);color:var(--red);border:1px solid rgba(255,51,51,.2)}
+ 
+/* BOTTOM BAR */
+.bb{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(4,4,10,.93);backdrop-filter:blur(20px);border-top:1px solid var(--border2);padding:14px 28px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.bb::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent);opacity:.5}
+.si{flex:1;min-width:160px;font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted)}
+.si strong{font-family:'Orbitron',monospace;font-size:17px;color:var(--cyan);text-shadow:0 0 16px rgba(0,245,255,.5)}
+.btn{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 22px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--text);cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn:hover{background:var(--surface3);border-color:rgba(255,255,255,.2)}
+.btn:active{transform:scale(.97)}
+.btn-g{background:linear-gradient(135deg,rgba(0,245,255,.12),rgba(180,79,255,.12));border:1px solid rgba(0,245,255,.4);color:var(--cyan);position:relative;overflow:hidden}
+.btn-g::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,245,255,.18),rgba(180,79,255,.18));opacity:0;transition:opacity .2s}
+.btn-g:hover::before{opacity:1}
+.btn-g:hover{box-shadow:0 0 24px rgba(0,245,255,.25)}
+ 
+/* CODE */
+.cs{margin-top:28px;display:none}
+.cs.vis{display:block;animation:fadeup .4s ease}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--surface2);border:1px solid var(--border);border-bottom:none;border-radius:12px 12px 0 0;gap:12px;flex-wrap:wrap}
+.dots{display:flex;gap:7px}
+.dots span{width:12px;height:12px;border-radius:50%}
+.dots span:nth-child(1){background:var(--red)}
+.dots span:nth-child(2){background:var(--amber)}
+.dots span:nth-child(3){background:var(--green)}
+.fn{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);flex:1;text-align:center}
+.ca{display:flex;gap:8px}
+pre{background:#020208;border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;padding:22px;font-family:'Share Tech Mono',monospace;font-size:11.5px;line-height:1.85;overflow:auto;max-height:400px;white-space:pre-wrap;word-break:break-all;color:#7878aa}
+.wn{display:flex;align-items:center;gap:10px;padding:10px 16px;background:rgba(255,184,0,.05);border:1px solid rgba(255,184,0,.15);border-radius:8px;margin-top:12px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--amber)}
+ 
+/* TOAST */
+.toast{position:fixed;top:24px;right:24px;background:var(--surface3);border:1px solid rgba(0,245,255,.3);border-radius:10px;padding:12px 22px;font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--cyan);z-index:9999;display:none;box-shadow:0 0 30px rgba(0,245,255,.2);animation:toastin .3s ease}
+.toast.show{display:block}
+@keyframes toastin{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,245,255,.3)}
+.ain{animation:fadeup .5s ease both}
+.d1{animation-delay:.1s}
+.d2{animation-delay:.2s}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cdot"></div>
+<canvas id="particles"></canvas>
+<div id="toast" class="toast"></div>
+<div class="wrap">
+ 
+<header class="ain">
+<div class="hglow"></div>
+<div class="hrow">
+<div>
+<div class="eyebrow">windows optimization suite v3.0</div>
+<div class="main-title">
+<span class="name glitch" data-text="MATE">MATE</span>
+<span class="sub">// WinTweaks — Sistema Operativo Domato</span>
+</div>
+</div>
+<div class="sgrid ain d2">
+<div class="scard"><span class="snum" id="st">42</span><span class="slabel">tweaks</span></div>
+<div class="scard"><span class="snum">6</span><span class="slabel">categorie</span></div>
+<div class="scard"><span class="snum" id="ss">0</span><span class="slabel">selezionati</span></div>
+</div>
+</div>
+</header>
+ 
+<div class="sep"></div>
+ 
+<div class="layout ain d1">
+<nav class="sidebar">
+<span class="slabel-nav">// categorie</span>
+<div id="stabs"></div>
+</nav>
+<div class="content">
+<div class="qa">
+<span class="qa-label">// rapido:</span>
+<button class="qb" onclick="selCat()">tutti in categoria</button>
+<button class="qb" onclick="selSafe()">solo sicuri</button>
+<button class="qb" onclick="selAll()">seleziona tutto</button>
+<button class="qb danger" onclick="clearAll()">reset</button>
+</div>
+<div class="tc">
+<table>
+<thead><tr>
+<th></th>
+<th>Nome tweak</th>
+<th>Descrizione</th>
+<th class="cr">Rischio</th>
+</tr></thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+<div class="cs" id="cs">
+<div class="ch">
+<div class="dots"><span></span><span></span><span></span></div>
+<div class="fn">mate-tweaks.ps1</div>
+<div class="ca">
+<button class="btn" style="padding:6px 14px;font-size:11px" onclick="copyScript()">Copia</button>
+<button class="btn" style="padding:6px 14px;font-size:11px" onclick="dlScript()">Scarica .ps1</button>
+</div>
+</div>
+<pre id="cpre"></pre>
+<div class="wn">⚠ Apri PowerShell come Amministratore → tasto destro → "Esegui come amministratore" → incolla ed esegui</div>
+</div>
+</div>
+</div>
+</div>
+ 
+<div class="bb">
+<div class="si"><strong id="bbc">0</strong> tweaks selezionati</div>
+<button class="btn" onclick="selCat()">+ Categoria</button>
+<button class="btn" onclick="clearAll()">Reset</button>
+<button class="btn btn-g" onclick="genScript()">⚡ GENERA SCRIPT PS1</button>
+</div>
+ 
+<script>
+const T={
+"🔒 Privacy":[
+{id:"p1",name:"Disabilita telemetria Windows",desc:"Azzera la raccolta dati diagnostici e di utilizzo di Microsoft",risk:"safe",cmd:`Set-ItemProperty -Path "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection" -Name "AllowTelemetry" -Value 0 -Force\nreg add "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d 0 /f`},
+{id:"p2",name:"Disabilita Cortana completamente",desc:"Rimuove Cortana dalla ricerca, dall'avvio e da tutti i contesti",risk:"safe",cmd:`reg add "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0 /f\nreg add "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search" /v "DisableWebSearch" /t REG_DWORD /d 1 /f`},
+{id:"p3",name:"Blocca ID pubblicità personalizzata",desc:"Disabilita l'Advertising ID usato dalle app per tracciarti",risk:"safe",cmd:`Set-ItemProperty -Path "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo" -Name "Enabled" -Value 0`},
+{id:"p4",name:"Blocca segnalazione errori Windows",desc:"Disabilita l'invio automatico di crash report e diagnostica a Microsoft",risk:"safe",cmd:`Disable-WindowsErrorReporting\nreg add "HKLM\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting" /v "Disabled" /t REG_DWORD /d 1 /f`},
+{id:"p5",name:"Disabilita Activity History e Timeline",desc:"Blocca il registro attività e la funzione Timeline di Windows 10/11",risk:"safe",cmd:`Set-ItemProperty -Path "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System" -Name "EnableActivityFeed" -Value 0\nSet-ItemProperty -Path "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System" -Name "PublishUserActivities" -Value 0\nSet-ItemProperty -Path "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System" -Name "UploadUserActivities" -Value 0`},
+{id:"p6",name:"Disabilita invio dati vocali",desc:"Blocca la raccolta e l'invio degli input vocali e dell'inchiostro a Microsoft",risk:"safe",cmd:`reg add "HKCU\\SOFTWARE\\Microsoft\\InputPersonalization" /v "RestrictImplicitTextCollection" /t REG_DWORD /d 1 /f\nreg add "HKCU\\SOFTWARE\\Microsoft\\InputPersonalization" /v "RestrictImplicitInkCollection" /t REG_DWORD /d 1 /f`},
+{id:"p7",name:"Disabilita Wi-Fi Sense",desc:"Blocca la condivisione automatica delle password Wi-Fi con i contatti",risk:"safe",cmd:`reg add "HKLM\\SOFTWARE\\Microsoft\\WcmSvc\\wifinetworkmanager\\config" /v "AutoConnectAllowedOEM" /t REG_DWORD /d 0 /f`},
+{id:"p8",name:"Disabilita finestre di feedback Microsoft",desc:"Rimuove i popup di feedback e i suggerimenti periodici di Windows",risk:"safe",cmd:`reg add "HKCU\\SOFTWARE\\Microsoft\\Siuf\\Rules" /v "NumberOfSIUFInPeriod" /t REG_DWORD /d 0 /f\nSet-ItemProperty -Path "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection" -Name "DoNotShowFeedbackNotifications" -Value 1`},
+],
+"⚡ Performance":[
+{id:"f1",name:"Disabilita tutte le animazioni UI",desc:"Interfaccia più scattante disabilitando animazioni, fade e trasparenze",risk:"safe",cmd:`Set-ItemProperty -Path "HKCU:\\Control Panel\\Desktop" -Name "UserPreferencesMask" -Value ([byte[]](0x90,0x12,0x03,0x80,0x10,0x00,0x00,0x00))\nSet-ItemProperty -Path "HKCU:\\Control Panel\\Desktop\\WindowMetrics" -Name "MinAnimate" -Value 0\nSet-ItemProperty -Path "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects" -Name "VisualFXSetting" -Value 2`},
+{id:"f2",name:"Piano energetico massime prestazioni",desc:"Attiva il piano High Performance — CPU sempre al massimo",risk:"safe",cmd:`powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c`},
+{id:"f3",name:"Disabilita app in background globalmente",desc:"Impedisce a tutte le app UWP di girare e consumare risorse in background",risk:"safe",cmd:`reg add "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications" /v "GlobalUserDisabled" /t REG_DWORD /d 1 /f`},
+{id:"f4",name:"Ottimizza SSD con TRIM",desc:"Assicura che TRIM sia attivo — essenziale per performance e longevità SSD",risk:"safe",cmd:`fsutil behavior set DisableDeleteNotify 0`},
+{id:"f5",name:"Disabilita SysMain/Superfetch",desc:"Riduce le scritture su disco inutili — consigliato per SSD moderni",risk:"medium",cmd:`Set-Service -Name SysMain -StartupType Disabled\nStop-Service -Name SysMain -Force`},
+{id:"f6",name:"Priorità CPU al processo attivo",desc:"Windows assegna più risorse CPU alla finestra in primo piano",risk:"medium",cmd:`Set-ItemProperty -Path "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl" -Name "Win32PrioritySeparation" -Value 38`},
+{id:"f7",name:"Ottimizza gestione cache RAM",desc:"Migliora la gestione della large system cache di sistema",risk:"medium",cmd:`Set-ItemProperty -Path "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management" -Name "LargeSystemCache" -Value 0`},
+{id:"f8",name:"Kernel in RAM — disabilita paging",desc:"Mantiene i moduli kernel in RAM invece del page file per velocità massima",risk:"advanced",cmd:`Set-ItemProperty -Path "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management" -Name "DisablePagingExecutive" -Value 1`},
+],
+"🗑 Bloatware":[
+{id:"b1",name:"Rimuovi Xbox App e Game Bar",desc:"Disinstalla Xbox App, Game Bar e disabilita DVR e overlay gaming",risk:"safe",cmd:`Get-AppxPackage *Xbox* | Remove-AppxPackage\nGet-AppxPackage *XboxGameOverlay* | Remove-AppxPackage\nreg add "HKCU\\System\\GameConfigStore" /v "GameDVR_Enabled" /t REG_DWORD /d 0 /f\nreg add "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR" /v "AllowGameDVR" /t REG_DWORD /d 0 /f`},
+{id:"b2",name:"Rimuovi Candy Crush e giochi preinstallati",desc:"Elimina tutti i giochi sponsorizzati e preinstallati da Microsoft Store",risk:"safe",cmd:`Get-AppxPackage *king* | Remove-AppxPackage\nGet-AppxPackage *CandyCrush* | Remove-AppxPackage\nGet-AppxPackage *Minecraft* | Remove-AppxPackage\nGet-AppxPackage *MarchofEmpires* | Remove-AppxPackage\nGet-AppxPackage *MicrosoftSolitaireCollection* | Remove-AppxPackage`},
+{id:"b3",name:"Rimuovi app Meteo, News e Sport Bing",desc:"Disinstalla MSN News, Weather, Sports e Maps — tutti i servizi Bing",risk:"safe",cmd:`Get-AppxPackage *BingNews* | Remove-AppxPackage\nGet-AppxPackage *BingWeather* | Remove-AppxPackage\nGet-AppxPackage *BingSports* | Remove-AppxPackage\nGet-AppxPackage *Maps* | Remove-AppxPackage`},
+{id:"b4",name:"Rimuovi OneDrive completamente",desc:"Disinstalla e disabilita OneDrive da avvio, shell e integrazione sistema",risk:"medium",cmd:`taskkill /f /im OneDrive.exe 2>$null\nif (Test-Path "$env:SystemRoot\\System32\\OneDriveSetup.exe") { & "$env:SystemRoot\\System32\\OneDriveSetup.exe" /uninstall }\nif (Test-Path "$env:SystemRoot\\SysWOW64\\OneDriveSetup.exe") { & "$env:SystemRoot\\SysWOW64\\OneDriveSetup.exe" /uninstall }\nreg add "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\OneDrive" /v "DisableFileSyncNGSC" /t REG_DWORD /d 1 /f`},
+{id:"b5",name:"Disabilita app suggerite nel menu Start",desc:"Rimuove app sponsorizzate, pubblicità e contenuti suggeriti dal menu Start",risk:"safe",cmd:`reg add "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager" /v "SystemPaneSuggestionsEnabled" /t REG_DWORD /d 0 /f\nreg add "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager" /v "SubscribedContent-338388Enabled" /t REG_DWORD /d 0 /f\nreg add "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager" /v "SubscribedContent-353698Enabled" /t REG_DWORD /d 0 /f`},
+{id:"b6",name:"Rimuovi Microsoft Teams Chat consumer",desc:"Disinstalla Microsoft Teams Chat integrato in Windows 11",risk:"safe",cmd:`Get-AppxPackage *Teams* | Remove-AppxPackage\nreg add "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Communications" /v "ConfigureChatAutoInstall" /t REG_DWORD /d 0 /f`},
+{id:"b7",name:"Rimuovi Cortana App UWP",desc:"Disinstalla completamente il pacchetto app UWP di Cortana",risk:"safe",cmd:`Get-AppxPackage *549981C3F5F10* | Remove-AppxPackage`},
+{id:"b8",name:"Rimuovi Paint 3D, 3D Viewer e Mixed Reality",desc:"Elimina Paint 3D, 3D Viewer, Mixed Reality Portal e 3D Builder",risk:"safe",cmd:`Get-AppxPackage *Microsoft.MSPaint* | Remove-AppxPackage\nGet-AppxPackage *Microsoft.Print3D* | Remove-AppxPackage\nGet-AppxPackage *Microsoft.3DBuilder* | Remove-AppxPackage\nGet-AppxPackage *Microsoft.MixedReality.Portal* | Remove-AppxPackage`},
+],
+"🛡 Sicurezza":[
+{id:"s1",name:"Abilita Firewall su tutti i profili di rete",desc:"Assicura che Windows Firewall sia attivo su profili Domain, Public e Private",risk:"safe",cmd:`Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True`},
+{id:"s2",name:"Disabilita Remote Desktop RDP",desc:"Chiude la porta 3389 e disabilita l'accesso RDP se non lo utilizzi",risk:"safe",cmd:`Set-ItemProperty -Path "HKLM:\\System\\CurrentControlSet\\Control\\Terminal Server" -Name "fDenyTSConnections" -Value 1\nDisable-NetFirewallRule -DisplayGroup "Remote Desktop"`},
+{id:"s3",name:"Abilita Windows Defender real-time completo",desc:"Garantisce che tutti i moduli di protezione di Defender siano attivi e funzionanti",risk:"safe",cmd:`Set-MpPreference -DisableRealtimeMonitoring $false\nSet-MpPreference -DisableBehaviorMonitoring $false\nSet-MpPreference -DisableIOAVProtection $false\nSet-MpPreference -DisableScriptScanning $false`},
+{id:"s4",name:"Disabilita autorun da USB, CD e DVD",desc:"Previene l'esecuzione automatica da qualsiasi dispositivo rimovibile",risk:"safe",cmd:`reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\AutoplayHandlers" /v "DisableAutoplay" /t REG_DWORD /d 1 /f\nreg add "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer" /v "NoDriveTypeAutoRun" /t REG_DWORD /d 255 /f`},
+{id:"s5",name:"UAC al livello massimo di protezione",desc:"Imposta User Account Control al livello più alto per massima sicurezza",risk:"safe",cmd:`reg add "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" /v "ConsentPromptBehaviorAdmin" /t REG_DWORD /d 2 /f\nreg add "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" /v "EnableLUA" /t REG_DWORD /d 1 /f`},
+{id:"s6",name:"Blocca SMBv1 — protezione WannaCry",desc:"Disabilita il protocollo SMBv1 vulnerabile usato da WannaCry e altri ransomware",risk:"safe",cmd:`Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force\nDisable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart`},
+],
+"🎮 Gaming":[
+{id:"g1",name:"Ottimizza timer di sistema per gaming",desc:"Configura HPET e timer per ridurre latenza e migliorare frame pacing",risk:"medium",cmd:`bcdedit /set useplatformclock false\nbcdedit /set useplatformtick yes\nbcdedit /set disabledynamictick yes`},
+{id:"g2",name:"Disabilita Xbox DVR e registrazione auto",desc:"Elimina la registrazione automatica gameplay e tutti gli overlay Xbox",risk:"safe",cmd:`reg add "HKCU\\System\\GameConfigStore" /v "GameDVR_Enabled" /t REG_DWORD /d 0 /f\nreg add "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR" /v "AllowGameDVR" /t REG_DWORD /d 0 /f\nreg add "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR" /v "AppCaptureEnabled" /t REG_DWORD /d 0 /f`},
+{id:"g3",name:"Abilita Windows Game Mode",desc:"Attiva la Game Mode di Windows per ottimizzare CPU/GPU durante i giochi",risk:"safe",cmd:`reg add "HKCU\\SOFTWARE\\Microsoft\\GameBar" /v "AllowAutoGameMode" /t REG_DWORD /d 1 /f\nreg add "HKCU\\SOFTWARE\\Microsoft\\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d 1 /f`},
+{id:"g4",name:"Priorità GPU e CPU massima per giochi",desc:"Imposta scheduling ad alta priorità per task gaming nel registro multimediale",risk:"medium",cmd:`reg add "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games" /v "GPU Priority" /t REG_DWORD /d 8 /f\nreg add "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games" /v "Priority" /t REG_DWORD /d 6 /f\nreg add "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games" /v "Scheduling Category" /t REG_SZ /d "High" /f`},
+{id:"g5",name:"Disabilita fullscreen optimization forzata",desc:"Rimuove l'ottimizzazione fullscreen di Windows che causa spesso input lag",risk:"safe",cmd:`reg add "HKCU\\System\\GameConfigStore" /v "GameDVR_FSEBehaviorMode" /t REG_DWORD /d 2 /f\nreg add "HKCU\\System\\GameConfigStore" /v "GameDVR_HonorUserFSEBehaviorMode" /t REG_DWORD /d 1 /f`},
+{id:"g6",name:"Disabilita Mouse Acceleration (Enhance Pointer Precision)",desc:"Rimuove l'accelerazione del mouse per aim preciso nei giochi FPS",risk:"safe",cmd:`Set-ItemProperty -Path "HKCU:\\Control Panel\\Mouse" -Name "MouseSpeed" -Value 0\nSet-ItemProperty -Path "HKCU:\\Control Panel\\Mouse" -Name "MouseThreshold1" -Value 0\nSet-ItemProperty -Path "HKCU:\\Control Panel\\Mouse" -Name "MouseThreshold2" -Value 0`},
+],
+"⚙ Avanzate":[
+{id:"a1",name:"Disabilita aggiornamenti automatici Windows",desc:"Gestisci Windows Update manualmente — attenzione: rischio sicurezza",risk:"advanced",cmd:`reg add "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU" /v "NoAutoUpdate" /t REG_DWORD /d 1 /f\nreg add "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU" /v "AUOptions" /t REG_DWORD /d 2 /f`},
+{id:"a2",name:"Abilita God Mode sul Desktop",desc:"Crea cartella con tutti i pannelli di controllo e impostazioni di Windows",risk:"safe",cmd:`New-Item -ItemType Directory -Path "$env:USERPROFILE\\Desktop\\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}" -ErrorAction SilentlyContinue`},
+{id:"a3",name:"Mostra estensioni file in Esplora risorse",desc:"Visualizza le estensioni .exe .dll .bat ecc. per tutti i file",risk:"safe",cmd:`Set-ItemProperty -Path "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced" -Name "HideFileExt" -Value 0`},
+{id:"a4",name:"Disabilita Search Highlights nel menu Start",desc:"Rimuove i contenuti di tendenza, in evidenza e sponsorizzati dalla ricerca",risk:"safe",cmd:`reg add "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SearchSettings" /v "IsDynamicSearchBoxEnabled" /t REG_DWORD /d 0 /f`},
+{id:"a5",name:"Mostra file nascosti e di sistema",desc:"Visualizza file nascosti, protetti e di sistema in Esplora risorse",risk:"medium",cmd:`Set-ItemProperty -Path "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced" -Name "Hidden" -Value 1\nSet-ItemProperty -Path "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced" -Name "ShowSuperHidden" -Value 1`},
+{id:"a6",name:"Disabilita ibernazione e libera spazio SSD",desc:"Rimuove hiberfil.sys liberando GBs di spazio pari alla tua RAM",risk:"medium",cmd:`powercfg /hibernate off`},
+{id:"a7",name:"DNS Cloudflare 1.1.1.1 per velocità e privacy",desc:"Imposta DNS Cloudflare su tutte le interfacce di rete per DNS più veloci",risk:"medium",cmd:`Set-DnsClientServerAddress -InterfaceAlias "Wi-Fi" -ServerAddresses 1.1.1.1,1.0.0.1\nSet-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 1.1.1.1,1.0.0.1`},
+{id:"a8",name:"Pulizia file temporanei e cache sistema",desc:"Svuota Temp, Prefetch e cache di Windows Update — libera spazio immediatamente",risk:"safe",cmd:`Remove-Item -Path "$env:TEMP\\*" -Recurse -Force -ErrorAction SilentlyContinue\nRemove-Item -Path "C:\\Windows\\Temp\\*" -Recurse -Force -ErrorAction SilentlyContinue\nRemove-Item -Path "C:\\Windows\\Prefetch\\*" -Recurse -Force -ErrorAction SilentlyContinue\nWrite-Host "Pulizia completata!" -ForegroundColor Cyan`},
+]
+};
+ 
+const cats=Object.keys(T);
+let active=cats[0];
+const sel=new Set();
+let tot=0;cats.forEach(c=>tot+=T[c].length);
+document.getElementById('st').textContent=tot;
+ 
+// CURSOR
+const cur=document.getElementById('cursor'),cd=document.getElementById('cdot');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';cd.style.left=e.clientX+'px';cd.style.top=e.clientY+'px'});
+ 
+// PARTICLES
+(()=>{
+const c=document.getElementById('particles'),ctx=c.getContext('2d');
+let W,H,ps=[];
+const resize=()=>{W=c.width=innerWidth;H=c.height=innerHeight};
+resize();window.addEventListener('resize',resize);
+for(let i=0;i<65;i++)ps.push({x:Math.random()*1920,y:Math.random()*1080,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.4+.3,col:Math.random()>.6?'#00f5ff':Math.random()>.5?'#b44fff':'#ffffff',a:Math.random()*.5+.1});
+const draw=()=>{
+ctx.clearRect(0,0,W,H);
+ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.col;ctx.globalAlpha=p.a;ctx.fill();ctx.globalAlpha=1});
+for(let i=0;i<ps.length;i++)for(let j=i+1;j<ps.length;j++){const dx=ps[i].x-ps[j].x,dy=ps[i].y-ps[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<110){ctx.beginPath();ctx.moveTo(ps[i].x,ps[i].y);ctx.lineTo(ps[j].x,ps[j].y);ctx.strokeStyle='#00f5ff';ctx.globalAlpha=(1-d/110)*.055;ctx.lineWidth=.5;ctx.stroke();ctx.globalAlpha=1}}
+requestAnimationFrame(draw)};draw();
+})();
+ 
+function renderTabs(){
+const el=document.getElementById('stabs');el.innerHTML='';
+cats.forEach(cat=>{
+const n=T[cat].filter(t=>sel.has(t.id)).length;
+const b=document.createElement('button');b.className='tab'+(cat===active?' active':'');
+b.innerHTML=`<span>${cat}</span><span class="tbadge">${n}</span>`;
+b.onclick=()=>{active=cat;renderTabs();renderTable()};
+el.appendChild(b)});
+}
+ 
+function renderTable(){
+const tb=document.getElementById('tbody');tb.innerHTML='';
+T[active].forEach((t,i)=>{
+const tr=document.createElement('tr');
+tr.className=sel.has(t.id)?'sel':'';
+tr.style.animationDelay=(i*.04)+'s';
+tr.onclick=()=>{sel.has(t.id)?sel.delete(t.id):sel.add(t.id);tr.className=sel.has(t.id)?'sel':'';upd();renderTabs();hideCode()};
+const rm={safe:['bs','✓ SAFE'],medium:['bm','~ MEDIO'],advanced:['ba','⚠ ADV']};
+const[rc,rl]=rm[t.risk];
+tr.innerHTML=`<td><div class="cbw"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#00f5ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></td><td><div class="tname">${t.name}</div><div class="tdesc">${t.desc}</div></td><td></td><td class="cr"><span class="badge ${rc}">${rl}</span></td>`;
+tb.appendChild(tr)});
+}
+ 
+function upd(){const n=sel.size;document.getElementById('bbc').textContent=n;document.getElementById('ss').textContent=n}
+function selCat(){T[active].forEach(t=>sel.add(t.id));renderTabs();renderTable();upd();hideCode()}
+function selSafe(){cats.forEach(c=>T[c].forEach(t=>{if(t.risk==='safe')sel.add(t.id)}));renderTabs();renderTable();upd();hideCode()}
+function selAll(){cats.forEach(c=>T[c].forEach(t=>sel.add(t.id)));renderTabs();renderTable();upd();hideCode()}
+function clearAll(){sel.clear();renderTabs();renderTable();upd();hideCode()}
+function hideCode(){document.getElementById('cs').classList.remove('vis')}
+ 
+function genScript(){
+if(!sel.size){toast('⚠ Seleziona almeno un tweak!');return}
+const L=[];
+L.push(`# =====================================================`);
+L.push(`# ███╗ ███╗ █████╗ ████████╗███████╗`);
+L.push(`# ████╗ ████║██╔══██╗╚══██╔══╝██╔════╝`);
+L.push(`# ██╔████╔██║███████║ ██║ █████╗`);
+L.push(`# ██║╚██╔╝██║██╔══██║ ██║ ██╔══╝`);
+L.push(`# ██║ ╚═╝ ██║██║ ██║ ██║ ███████╗`);
+L.push(`#`);
+L.push(`# Mate's WinTweaks — PowerShell Script`);
+L.push(`# Generato: ${new Date().toLocaleString('it-IT')}`);
+L.push(`# Tweaks selezionati: ${sel.size}`);
+L.push(`# >> ESEGUI COME AMMINISTRATORE <<`);
+L.push(`# =====================================================`);
+L.push(``);
+L.push(`Write-Host "[MATE'S WINTWEAKS] Avvio ottimizzazione..." -ForegroundColor Cyan`);
+L.push(``);
+cats.forEach(cat=>{
+const ct=T[cat].filter(t=>sel.has(t.id));
+if(!ct.length)return;
+const cc=cat.replace(/^[^\s]+ /,'');
+L.push(`# ======== ${cc.toUpperCase()} ========`);L.push(``);
+ct.forEach(t=>{
+L.push(`# [${t.risk.toUpperCase()}] ${t.name}`);
+L.push(t.cmd);
+L.push(`Write-Host " + ${t.name}" -ForegroundColor Green`);
+L.push(``);
+});
+});
+L.push(`# ======== COMPLETATO ========`);
+L.push(`Write-Host "" `);
+L.push(`Write-Host "[MATE] Ottimizzazione completata!" -ForegroundColor Cyan`);
+L.push(`Write-Host "${sel.size} tweaks applicati con successo." -ForegroundColor White`);
+L.push(`Write-Host "Riavvia il PC per applicare tutte le modifiche." -ForegroundColor Yellow`);
+const s=L.join('\n');
+document.getElementById('cpre').textContent=s;
+const cs=document.getElementById('cs');cs.classList.add('vis');
+setTimeout(()=>cs.scrollIntoView({behavior:'smooth',block:'start'}),100);
+toast(`✓ Script generato — ${sel.size} tweaks`);
+}
+ 
+function copyScript(){navigator.clipboard.writeText(document.getElementById('cpre').textContent).then(()=>toast('✓ Script copiato negli appunti!'))}
+function dlScript(){const b=new Blob([document.getElementById('cpre').textContent],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='mate-tweaks.ps1';a.click();toast('⬇ Download avviato!')}
+ 
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2800)}
+ 
+renderTabs();renderTable();
+</script>
+</body>
+</html>
